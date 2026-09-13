@@ -1,0 +1,19 @@
+# 🚀 Level Up Life
+
+**Level Up Life** is a gamified habit-tracking and self-improvement web application designed to turn your real-world tasks and habits into character growth.
+
+## ✨ Features
+- **Gamified Tracking:** Treat your daily habits like an RPG character's stats (Strength, Intelligence, Ability).
+- **Secure Authentication:** Fully integrated with **Firebase Authentication** supporting both Google Sign-In and Email/Password login.
+- **Session Persistence:** Manages user sessions securely using browser storage and real-time backend verification.
+- **Modern UI:** Clean, dark-themed dashboard designed for focus and productivity.
+
+## 🛠️ Tech Stack
+- **Frontend:** HTML5, CSS3, JavaScript (ES6)
+- **Backend & Auth:** Firebase Auth (Google & Email/Password)
+- **Deployment:** GitHub Pages
+
+## 🚀 Getting Started Locally
+1. Clone the repository:
+   ```bash
+   git clone [https://github.com/officialabhinaw/level-up-life.git](https://github.com/officialabhinaw/level-up-life.git)

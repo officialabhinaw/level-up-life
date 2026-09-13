@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level up life</title>
+<style>
+    :root {
+        --navy: #0F172A;
+        --card-bg: #131C2E;
+        --card-border: #223049;
+        --text-dim: #8B96AC;
+        --teal: #0EA5A0;
+        --orange: #F97316;
+    }
+
+    * {
+        -webkit-tap-highlight-color: transparent;
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: #070B14;
+        color: #EAF0FA;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        -ms-overflow-style: none;  
+        scrollbar-width: none;  
+    }
+
+    body::-webkit-scrollbar {
+        display: none;
+    }
+
+    .mobile-container {
+        width: 100%;
+        max-width: 412px;
+        min-height: 100vh;
+        background: var(--navy);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+        overflow-y: auto;
+        -ms-overflow-style: none;  
+        scrollbar-width: none;  
+    }
+
+    .mobile-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    @media(min-width: 480px) {
+        .mobile-container {
+            border-radius: 36px;
+            border: 8px solid #1E293B;
+            height: 844px;
+            min-height: 844px;
+        }
+    }
+
+    .content-area {
+        padding: 40px 16px;
+        flex: 1;
+    }
+
+    .header {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .h1 {
+        justify-content: center;
+        text-align: center;
+        margin: 8px 0 0 0;
+    }
+
+    h5 {
+        justify-content: center;
+        text-align: center;
+        margin: 4px 0 24px 0;
+        color: var(--text-dim);
+        font-weight: 400;
+    }
+
+    .container {
+        justify-content: center;
+        text-align: center;
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        padding: 0 8px;
+    }
+
+    .box {
+        min-height: 100px;
+        width: 100px;
+        border-radius: 12px;
+        background-color: var(--card-bg);
+        border: 1px solid var(--card-border);
+        font-size: 14px;
+        font-weight: 600;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px;
+        cursor: pointer;
+        transition: border-color 0.2s ease;
+    }
+
+    .box:hover {
+        border-color: var(--teal);
+    }
+
+    .box svg {
+        width: 44px;
+        height: 44px;
+    }
+
+    .footer {
+        width: 100%;
+        margin: 30px auto 0 auto;
+        background-color: var(--card-bg);
+        border-radius: 14px;
+        border: 1px solid var(--card-border);
+        padding: 20px;
+    }
+
+    .login {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 16px;
+        justify-content: center;
+    }
+
+    .boxes {
+        flex: 1;
+        padding: 10px 0;
+        background-color: #0F1626;
+        border: 1px solid var(--card-border);
+        border-radius: 20px;
+        font-size: 15px;
+        font-weight: 600;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        color: var(--text-dim);
+    }
+
+    .boxes.active {
+        background: #7C3AED;
+        border-color: #7C3AED;
+        color: white;
+    }
+
+    h3 {
+        margin: 12px 0 4px 6px;
+        font-size: 14px;
+        text-align: left;
+        color: #EAF0FA;
+        font-weight: 600;
+    }
+
+    .input {
+        border-radius: 10px;
+        width: 100%;
+        height: 40px;
+        border: 1px solid var(--card-border);
+        background: #0F1626;
+        color: #EAF0FA;
+        padding: 0 12px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+    .input:focus {
+        outline: none;
+        border-color: var(--teal);
+    }
+
+    .input::placeholder {
+        color: var(--text-dim);
+    }
+    
+    .signup-field {
+        display: none;
+    }
+
+    .btn {
+        display: block;
+        width: 100%;
+        border: 1px solid var(--card-border);
+        border-radius: 10px;
+        padding: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        margin-top: 12px;
+        cursor: pointer;
+        background: #0F1626;
+        color: #EAF0FA;
+    }
+
+    .btn:hover {
+        border-color: var(--teal);
+    }
+
+    .continue {
+        display: block;
+        width: 100%;
+        border: none;
+        border-radius: 10px;
+        padding: 12px;
+        font-size: 15px;
+        font-weight: 700;
+        margin-top: 16px;
+        cursor: pointer;
+        background: linear-gradient(90deg, var(--teal), var(--orange));
+        color: white;
+    }
+
+    .divider {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--text-dim);
+        font-size: 13px;
+        margin: 20px 0;
+    }
+
+    .divider::before,
+    .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--card-border);
+    }
+
+    .google-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        padding: 12px;
+        background: #ffffff;
+        color: #1F2937;
+        border: none;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: box-shadow 0.2s ease;
+    }
+
+    .google-btn:hover {
+        box-shadow: 0 2px 10px rgba(0,0,0,0.35);
+    }
+
+    .status {
+        text-align: center;
+        font-size: 13px;
+        color: var(--teal);
+        margin-top: 14px;
+        font-weight: 600;
+    }
+</style>
+</head>
+
+<body>
+
+    <div class="mobile-container">
+        <div class="content-area">
+            <div class="header">
+                <svg width="70" height="70" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="gradL" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#0B7285" />
+                            <stop offset="100%" stop-color="#F97316" />
+                        </linearGradient>
+                        <linearGradient id="gradU" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#0B7285" />
+                            <stop offset="100%" stop-color="#F97316" />
+                        </linearGradient>
+                        <linearGradient id="gradArrow" x1="0%" y1="100%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#F97316" />
+                            <stop offset="100%" stop-color="#FB923C" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M95 40 L145 40 L145 220 L95 220 Z" fill="url(#gradL)" />
+                    <circle cx="160" cy="95" r="18" fill="url(#gradU)" />
+                    <path d="M150 115 L170 115 L190 75 L205 85 L182 132 L160 132 Z" fill="url(#gradU)" />
+                    <path d="M150 115 L170 115 L160 180 L150 180 Z" fill="url(#gradU)" />
+                    <path d="M190 130 L220 130 L220 195 C220 208 235 218 255 218 C275 218 288 205 288 190 L288 130 L258 130"
+                        fill="url(#gradU)" />
+                    <path d="M270 240 L270 100 L245 100 L285 40 L325 100 L300 100 L300 240 Z" fill="url(#gradArrow)" />
+                </svg>
+            </div>
+
+            <h1 class="h1">Level up life</h1>
+            <h5>Turn your real task into character growth</h5>
+
+            <div class="container">
+                <div class="box">
+                    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="32" cy="32" r="28" fill="#7C3AED" />
+                        <path d="M32 12 C35 20 41 23 41 32 C41 39 37 45 30 45 C23 45 19 39 21 32 C22 29 24 27 24 27 C24 30 26 32 27 30 C26 25 29 19 32 12 Z" fill="#F97316" />
+                    </svg>
+                    Strength
+                </div>
+                <div class="box">
+                    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M26 10 C20 10 16 14 16 19 C13 20 11 23 11 27 C11 30 12 32 14 34 C12 36 11 39 11 42 C11 47 15 51 20 51 L20 54 C20 56 22 58 24 58 L28 58 C30 58 32 56 32 54 L32 16 C32 12 29 10 26 10 Z" fill="#7C3AED" />
+                        <path d="M38 10 C44 10 48 14 48 19 C51 20 53 23 53 27 C53 30 52 32 50 34 C52 36 53 39 53 42 C53 47 49 51 44 51 L44 54 C44 56 42 58 40 58 L36 58 C34 58 32 56 32 54 L32 16 C32 12 35 10 38 10 Z" fill="#F97316" />
+                    </svg>
+                    Intelligent
+                </div>
+                <div class="box">
+                    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="32" cy="32" r="24" fill="none" stroke="#7C3AED" stroke-width="4" />
+                        <circle cx="32" cy="32" r="14" fill="none" stroke="#7C3AED" stroke-width="4" />
+                        <circle cx="32" cy="32" r="5" fill="#F97316" />
+                    </svg>
+                    Ability
+                </div>
+            </div>
+
+            <div class="footer">
+                <div class="login">
+                    <div class="boxes active" onclick="setActive(this, 'login')">Login</div>
+                    <div class="boxes" onclick="setActive(this, 'signup')">Sign up</div>
+                </div>
+
+                <div id="nameGroup" class="signup-field">
+                    <h3>Full Name</h3>
+                    <input class="input" id="nameInput" type="text" placeholder="Enter your full name">
+                </div>
+
+                <h3>Email</h3>
+                <input class="input" id="emailInput" type="email" placeholder="name@example.com">
+
+                <h3>Password</h3>
+                <input class="input" id="passwordInput" type="password" placeholder="Enter password">
+
+                <button class="continue" id="actionBtn" onclick="handleContinue()">Log In</button>
+
+                <div class="divider">OR</div>
+
+                <button class="google-btn" onclick="handleGoogleSignIn()">
+                    <svg width="20" height="20" viewBox="0 0 48 48">
+                        <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.9 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l6-6C34 5.1 29.3 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21c0-1.4-.1-2.7-.4-3.5z"/>
+                        <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.3 19 12 24 12c3.1 0 5.8 1.1 8 3l6-6C34 5.1 29.3 3 24 3 16.1 3 9.3 7.4 6.3 14.7z"/>
+                        <path fill="#4CAF50" d="M24 45c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 36.6 26.7 37.5 24 37.5c-5.3 0-9.7-3.4-11.3-8.1l-6.5 5C9.1 40.5 16 45 24 45z"/>
+                        <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.1 5.7l6.2 5.2C40.7 36.4 44 30.9 44 24c0-1.4-.1-2.7-.4-3.5z"/>
+                    </svg>
+                    Continue with Google
+                </button>
+
+                <button class="btn" onclick="guestEntry()">Start your quest</button>
+
+                <div class="status" id="statusText"></div>
+            </div>
+        </div>
+    </div>
+
+<!-- Firebase SDKs (using compat libraries for simple HTML integration) -->
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+
+<script>
+    // 1. Firebase Configuration from your screenshot
+    const firebaseConfig = {
+    apiKey: "AIzaSyCfEaglyyPh7ID5BXQtCZqLNHzNzV2M2rg",
+    authDomain: "level-up-life-cbe81.firebaseapp.com",
+    projectId: "level-up-life-cbe81",
+    storageBucket: "level-up-life-cbe81.firebasestorage.app",
+    messagingSenderId: "1063474511723",
+    appId: "1:1063474511723:web:55534e78be18fde903d62e"
+};
+
+    // 2. Initialize Firebase
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    // 3. Real Google Sign In Logic
+    function handleGoogleSignIn() {
+        document.getElementById('statusText').style.color = "var(--text-dim)";
+        document.getElementById('statusText').innerText = "Opening Google Login...";
+
+        firebase.auth().signInWithPopup(provider)
+            .then((result) => {
+                const user = result.user;
+                
+                // Saving real user data from Google
+                localStorage.setItem('username', user.displayName);
+                localStorage.setItem('userEmail', user.email);
+                localStorage.setItem('userType', 'google');
+
+                document.getElementById('statusText').style.color = "var(--teal)";
+                document.getElementById('statusText').innerText = "Signed in as " + user.displayName;
+
+                if (isSignupMode()) {
+                    setTimeout(() => { window.location.href = "onboding.html"; }, 1000);
+                } else {
+                    setTimeout(() => { window.location.href = "dashboard.html"; }, 1000);
+                }
+            }).catch((error) => {
+                document.getElementById('statusText').style.color = "#EF4444";
+                document.getElementById('statusText').innerText = "Google Login Cancelled or Failed";
+                console.error(error);
+            });
+    }
+
+    // Standard UI Logic
+    function setActive(clickedBox, mode) {
+        document.querySelectorAll('.boxes').forEach(box => {
+            box.classList.remove('active');
+        });
+        clickedBox.classList.add('active');
+
+        const nameGroup = document.getElementById('nameGroup');
+        const actionBtn = document.getElementById('actionBtn');
+
+        if (mode === 'signup') {
+            nameGroup.style.display = 'block';
+            actionBtn.innerText = 'Create Account';
+        } else {
+            nameGroup.style.display = 'none';
+            actionBtn.innerText = 'Log In';
+        }
+        document.getElementById('statusText').innerText = "";
+    }
+
+    function isSignupMode() {
+        const boxes = document.querySelectorAll('.boxes');
+        return boxes[1].classList.contains('active');
+    }
+
+    function handleContinue() {
+        const email = document.getElementById('emailInput').value.trim();
+        const password = document.getElementById('passwordInput').value.trim();
+        const name = document.getElementById('nameInput').value.trim();
+
+        if (!email || !password || (isSignupMode() && !name)) {
+            document.getElementById('statusText').innerText = "Please fill in all required fields.";
+            document.getElementById('statusText').style.color = "#EF4444"; 
+            return;
+        }
+
+        document.getElementById('statusText').style.color = "var(--text-dim)";
+        document.getElementById('statusText').innerText = "Checking details...";
+
+        if (isSignupMode()) {
+            // ASALI FIREBASE SIGNUP
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    user.updateProfile({
+                        displayName: name
+                    });
+
+                    localStorage.setItem('username', name);
+                    localStorage.setItem('userEmail', email);
+                    localStorage.setItem('userType', 'email');
+
+                    document.getElementById('statusText').style.color = "var(--teal)";
+                    document.getElementById('statusText').innerText = "Account created. Setting up profile...";
+                    setTimeout(() => { window.location.href = "onboding.html"; }, 1000);
+                })
+                .catch((error) => {
+                    document.getElementById('statusText').style.color = "#EF4444";
+                    document.getElementById('statusText').innerText = error.message;
+                });
+
+        } else {
+            // ASALI FIREBASE LOGIN
+            firebase.auth().signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    const savedName = user.displayName || email.split('@')[0];
+                    
+                    localStorage.setItem('username', savedName);
+                    localStorage.setItem('userEmail', user.email);
+                    localStorage.setItem('userType', 'email');
+
+                    document.getElementById('statusText').style.color = "var(--teal)";
+                    document.getElementById('statusText').innerText = "Login successful. Redirecting...";
+                    setTimeout(() => { window.location.href = "dashboard.html"; }, 1000);
+                })
+                .catch((error) => {
+                    document.getElementById('statusText').style.color = "#EF4444";
+                    document.getElementById('statusText').innerText = "Invalid Email or Password!";
+                });
+        }
+    }
+
+    function guestEntry() {
+        localStorage.setItem('userType', 'guest');
+        localStorage.setItem('username', 'Guest');
+        document.getElementById('statusText').style.color = "var(--teal)";
+        document.getElementById('statusText').innerText = "Continuing as guest...";
+        setTimeout(() => { window.location.href = "dashboard.html"; }, 1000);
+    }
+</script>
+
+</body>
+</html>

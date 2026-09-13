@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Level up life</title>
+<style>
+    :root {
+        --navy: #0F172A;
+        --card-bg: #131C2E;
+        --card-border: #223049;
+        --text-dim: #8B96AC;
+        --teal: #0EA5A0;
+        --orange: #F97316;
+        --purple: #7C3AED;
+    }
+
+    * {
+        -webkit-tap-highlight-color: transparent;
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: #070B14;
+        color: #EAF0FA;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        -ms-overflow-style: none;  
+        scrollbar-width: none;  
+    }
+    body::-webkit-scrollbar {
+        display: none;
+    }
+
+    .mobile-container {
+        width: 100%;
+        max-width: 412px;
+        min-height: 100vh;
+        background: var(--navy);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+        overflow-y: auto;
+        -ms-overflow-style: none;  
+        scrollbar-width: none;  
+    }
+    .mobile-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    @media(min-width: 480px) {
+        .mobile-container {
+            border-radius: 36px;
+            border: 8px solid #1E293B;
+            height: 844px;
+            min-height: 844px;
+        }
+    }
+
+    .content-area {
+        padding: 20px 16px 20px 16px;
+        flex: 1;
+    }
+
+    .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--purple);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 18px;
+        color: white;
+        border: 1px solid var(--card-border);
+    }
+
+    .greeting-text h4 {
+        margin: 0;
+        font-size: 14px;
+        color: var(--text-dim);
+        font-weight: 400;
+    }
+
+    .greeting-text h2 {
+        margin: 2px 0 0 0;
+        font-size: 18px;
+        color: #EAF0FA;
+    }
+
+    .nav-icons {
+        display: flex;
+        gap: 10px;
+    }
+
+    .icon-btn {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #EAF0FA;
+        text-decoration: none;
+    }
+
+    .icon-btn:hover {
+        border-color: var(--teal);
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .stat-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 12px;
+        padding: 12px;
+        text-align: center;
+    }
+
+    .stat-card span {
+        display: block;
+        font-size: 12px;
+        color: var(--text-dim);
+        margin-bottom: 4px;
+    }
+
+    .stat-card strong {
+        font-size: 16px;
+        color: #EAF0FA;
+    }
+
+    .section-title {
+        font-size: 16px;
+        font-weight: 600;
+        margin: 20px 0 10px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .section-title a {
+        font-size: 13px;
+        color: var(--teal);
+        text-decoration: none;
+    }
+
+    .card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        padding: 16px;
+        margin-bottom: 14px;
+    }
+
+    .quest-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--card-border);
+    }
+
+    .quest-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .quest-info h5 {
+        margin: 0 0 4px 0;
+        font-size: 14px;
+        font-weight: 600;
+        color: #EAF0FA;
+    }
+
+    .quest-info p {
+        margin: 0;
+        font-size: 12px;
+        color: var(--text-dim);
+    }
+
+    .badge {
+        font-size: 11px;
+        font-weight: 600;
+        padding: 4px 8px;
+        border-radius: 6px;
+        background: rgba(14, 165, 160, 0.15);
+        color: var(--teal);
+    }
+
+    .badge.orange {
+        background: rgba(249, 115, 22, 0.15);
+        color: var(--orange);
+    }
+
+    .bottom-nav {
+        position: sticky;
+        bottom: 0;
+        background: var(--card-bg);
+        border-top: 1px solid var(--card-border);
+        display: flex;
+        justify-content: space-around;
+        padding: 10px 0;
+        z-index: 10;
+    }
+
+    @media(min-width: 480px) {
+        .bottom-nav {
+            border-bottom-left-radius: 28px;
+            border-bottom-right-radius: 28px;
+        }
+    }
+
+    .nav-item {
+        color: var(--text-dim);
+        text-decoration: none;
+        font-size: 11px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        cursor: pointer;
+    }
+
+    .nav-item.active {
+        color: var(--teal);
+    }
+
+    .nav-item svg {
+        width: 22px;
+        height: 22px;
+        fill: currentColor;
+    }
+</style>
+</head>
+
+<body>
+
+    <div class="mobile-container">
+        
+        <div class="content-area">
+            <div class="top-bar">
+                <div class="user-info">
+                    <div class="avatar" id="userAvatar">H</div>
+                    <div class="greeting-text">
+                        <h4>Welcome back,</h4>
+                        <h2 id="userNameDisplay">Hero</h2>
+                    </div>
+                </div>
+                <div class="nav-icons">
+                    <a href="leaderboard.html" class="icon-btn" title="Leaderboard">🏆</a>
+                    <!-- Update Settings link to match your settings file name (e.g. index.html or settings.html) -->
+                    <a href="index.html" class="icon-btn" title="Settings">⚙️</a>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span>Level</span>
+                    <strong style="color: var(--teal);">1</strong>
+                </div>
+                <div class="stat-card">
+                    <span>XP Points</span>
+                    <strong style="color: var(--orange);">120</strong>
+                </div>
+                <div class="stat-card">
+                    <span>Streak</span>
+                    <strong style="color: var(--purple);">3 Days</strong>
+                </div>
+            </div>
+
+            <div class="section-title">
+                Active Quests
+                <a href="quest.html">View All</a>
+            </div>
+
+            <div class="card">
+                <div class="quest-item">
+                    <div class="quest-info">
+                        <h5>Morning Workout</h5>
+                        <p>Strength +15 XP</p>
+                    </div>
+                        <span class="badge">In Progress</span>
+                </div>
+                <div class="quest-item">
+                    <div class="quest-info">
+                        <h5>Read 20 Pages</h5>
+                        <p>Intelligent +20 XP</p>
+                    </div>
+                    <span class="badge orange">Pending</span>
+                </div>
+            </div>
+
+            <div class="section-title">Achievements Progress</div>
+            <div class="card" style="text-align: center;">
+                <p style="margin: 0 0 10px 0; font-size: 13px; color: var(--text-dim);">Unlocked 2 out of 15 badges</p>
+                <a href="achievment.html" style="color: var(--teal); text-decoration: none; font-size: 14px; font-weight: 600;">View All Achievements →</a>
+            </div>
+            
+            <div style="height: 20px;"></div>
+        </div>
+
+        <div class="bottom-nav">
+            <a href="dashboard.html" class="nav-item active">
+                <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                Home
+            </a>
+            <a href="quest.html" class="nav-item">
+                <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                Quests
+            </a>
+            <a href="achievment.html" class="nav-item">
+                <svg viewBox="0 0 24 24"><path d="M19 5h-4.15C14.3 3.61 13.25 2.5 12 2.5s-2.3 1.11-2.85 2.5H5c-1.1 0-2 .9-2 2v2c0 2.55 1.92 4.63 4.4 4.94C7.85 15.77 9.7 18.13 10.5 19.5v2.5h3v-2.5c.8-1.37 2.65-3.73 3.1-5.56 2.48-.31 4.4-2.39 4.4-4.94V7c0-1.1-.9-2-2-2zM5 9V7h2.12C6.42 7.8 6.03 8.37 5.75 9H5zm14 0h-.75c-.28-.63-.67-1.2-1.37-2H19v2z"/></svg>
+                Badges
+            </a>
+            <a href="profile.html" class="nav-item">
+                <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                Profile
+            </a>
+        </div>
+
+    </div>
+
+<script>
+    // Grab user details from local storage set during Login/Signup
+    window.onload = function() {
+        const savedName = localStorage.getItem('username');
+        if (savedName) {
+            document.getElementById('userNameDisplay').innerText = savedName;
+            document.getElementById('userAvatar').innerText = savedName.charAt(0).toUpperCase();
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level Up Life - Onboarding</title>
+<style>
+    :root {
+        --navy: #0F172A;
+        --card-bg: #131C2E;
+        --card-border: #223049;
+        --text-dim: #8B96AC;
+        --teal: #0EA5A0;
+        --orange: #F97316;
+    }
+
+    * {
+        -webkit-tap-highlight-color: transparent;
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: #070B14;
+        color: #EAF0FA;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        -ms-overflow-style: none;  
+        scrollbar-width: none;  
+    }
+
+    body::-webkit-scrollbar {
+        display: none;
+    }
+
+    .mobile-container {
+        width: 100%;
+        max-width: 412px;
+        min-height: 100vh;
+        background: var(--navy);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+        overflow-y: auto;
+        -ms-overflow-style: none;  
+        scrollbar-width: none;  
+    }
+
+    .mobile-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    @media(min-width: 480px) {
+        .mobile-container {
+            border-radius: 36px;
+            border: 8px solid #1E293B;
+            height: 844px;
+            min-height: 844px;
+        }
+    }
+
+    .top-bar {
+        display: flex;
+        justify-content: flex-end;
+        padding: 20px 24px 0 24px;
+    }
+
+    .skip-btn {
+        background: transparent;
+        border: none;
+        color: var(--text-dim);
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 8px 12px;
+        transition: color 0.2s;
+    }
+
+    .skip-btn:hover {
+        color: white;
+    }
+
+    .content-area {
+        padding: 20px 24px 40px 24px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 28px;
+        margin: 10px 0 10px 0;
+        color: #EAF0FA;
+    }
+
+    p.subtitle {
+        color: var(--text-dim);
+        line-height: 1.5;
+        font-size: 15px;
+        margin-bottom: 40px;
+    }
+
+    .feature-box {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 16px;
+        padding: 20px;
+        margin-bottom: 16px;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .feature-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        background: rgba(14, 165, 160, 0.15);
+        color: var(--teal);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        flex-shrink: 0;
+    }
+    
+    .feature-icon.orange {
+        background: rgba(249, 115, 22, 0.15);
+        color: var(--orange);
+    }
+    
+    .feature-icon.purple {
+        background: rgba(124, 58, 237, 0.15);
+        color: #7C3AED;
+    }
+
+    .feature-text h4 {
+        margin: 0 0 6px 0;
+        font-size: 16px;
+        color: #EAF0FA;
+    }
+
+    .feature-text p {
+        margin: 0;
+        font-size: 13px;
+        color: var(--text-dim);
+        line-height: 1.4;
+    }
+
+    .btn {
+        width: 100%;
+        border: none;
+        border-radius: 14px;
+        padding: 16px;
+        font-size: 16px;
+        font-weight: 700;
+        margin-top: 40px;
+        cursor: pointer;
+        background: linear-gradient(90deg, var(--teal), var(--orange));
+        color: white;
+        transition: transform 0.2s;
+        box-shadow: 0 4px 15px rgba(14, 165, 160, 0.3);
+    }
+
+    .btn:active {
+        transform: scale(0.98);
+    }
+</style>
+</head>
+
+<body>
+
+    <div class="mobile-container">
+        
+        <!-- Skip Button -->
+        <div class="top-bar">
+            <button class="skip-btn" onclick="window.location.href='dashboard.html'">Skip</button>
+        </div>
+
+        <div class="content-area">
+            
+            <h1 id="welcomeText">Welcome, Hero!</h1>
+            <p class="subtitle">Your journey to leveling up your real life starts right here.</p>
+
+            <div class="feature-box">
+                <div class="feature-icon">🎯</div>
+                <div class="feature-text">
+                    <h4>Set Quests</h4>
+                    <p>Turn your daily real-life habits into exciting game missions.</p>
+                </div>
+            </div>
+
+            <div class="feature-box">
+                <div class="feature-icon orange">⭐</div>
+                <div class="feature-text">
+                    <h4>Earn XP</h4>
+                    <p>Complete tasks to gain XP, level up, and increase your stats.</p>
+                </div>
+            </div>
+
+            <div class="feature-box">
+                <div class="feature-icon purple">🏆</div>
+                <div class="feature-text">
+                    <h4>Unlock Badges</h4>
+                    <p>Show off your achievements on the leaderboard as you rank up.</p>
+                </div>
+            </div>
+
+            <div style="flex-grow: 1;"></div>
+
+            <!-- Get Started Button -->
+            <button class="btn" onclick="window.location.href='dashboard.html'">Get Started</button>
+            
+        </div>
+    </div>
+
+<script>
+    // Agar user ne apna naam dala hoga create account time, toh yahan dikhega
+    window.onload = function() {
+        const name = localStorage.getItem('username');
+        if(name && name !== 'Guest') {
+            document.getElementById('welcomeText').innerText = "Welcome, " + name + "!";
+        }
+    }
+</script>
+
+</body>
+</html>

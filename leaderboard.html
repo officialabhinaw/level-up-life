@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Level Up Life — Leaderboard</title>
+<style>
+  :root {
+    --navy: #0F172A;
+    --card-bg: #131C2E;
+    --card-border: #223049;
+    --text-dim: #8B96AC;
+    --teal: #0EA5A0;
+    --orange: #F97316;
+    --gold: #FBBF24;
+    --silver: #CBD5E1;
+    --bronze: #D97706;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--navy);
+    color: #EAF0FA;
+    padding: 32px 20px 60px 20px;
+  }
+
+  .page {
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .page-title {
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+
+  .page-sub {
+    font-size: 13px;
+    color: var(--text-dim);
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .podium {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .podium-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    max-width: 140px;
+  }
+
+  .podium-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 8px;
+    border: 3px solid;
+  }
+
+  .podium-1 .podium-avatar { border-color: var(--gold); background: rgba(251,191,36,0.15); color: var(--gold); width: 68px; height: 68px; font-size: 22px; }
+  .podium-2 .podium-avatar { border-color: var(--silver); background: rgba(203,213,225,0.15); color: var(--silver); }
+  .podium-3 .podium-avatar { border-color: var(--bronze); background: rgba(217,119,6,0.15); color: var(--bronze); }
+
+  .podium-name {
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .podium-xp {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  .podium-bar {
+    width: 100%;
+    border-radius: 8px 8px 0 0;
+    margin-top: 10px;
+  }
+
+  .podium-1 { order: 2; }
+  .podium-2 { order: 1; }
+  .podium-3 { order: 3; }
+
+  .podium-1 .podium-bar { height: 70px; background: linear-gradient(180deg, var(--gold), transparent); }
+  .podium-2 .podium-bar { height: 50px; background: linear-gradient(180deg, var(--silver), transparent); }
+  .podium-3 .podium-bar { height: 34px; background: linear-gradient(180deg, var(--bronze), transparent); }
+
+  .rank-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+  }
+
+  .rank-row.me {
+    border-color: var(--teal);
+    background: rgba(14,165,160,0.08);
+  }
+
+  .rank-number {
+    width: 26px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-dim);
+    flex-shrink: 0;
+    text-align: center;
+  }
+
+  .rank-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #16233F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #5FA0FF;
+    flex-shrink: 0;
+  }
+
+  .rank-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .rank-name {
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .rank-level {
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+
+  .rank-xp {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--orange);
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  .rank-xp span {
+    display: block;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-dim);
+  }
+
+  @media (max-width: 480px) {
+    body {
+      padding: 20px 12px 40px 12px;
+    }
+
+    .page-title {
+      font-size: 19px;
+    }
+
+    .podium {
+      gap: 6px;
+    }
+
+    .podium-avatar {
+      width: 46px;
+      height: 46px;
+      font-size: 15px;
+    }
+
+    .podium-1 .podium-avatar {
+      width: 56px;
+      height: 56px;
+      font-size: 18px;
+    }
+
+    .podium-name {
+      font-size: 11px;
+    }
+
+    .podium-xp {
+      font-size: 10px;
+    }
+
+    .rank-row {
+      padding: 10px 10px;
+      gap: 8px;
+    }
+
+    .rank-avatar {
+      width: 32px;
+      height: 32px;
+      font-size: 12px;
+    }
+
+    .rank-name {
+      font-size: 13px;
+    }
+
+    .rank-xp {
+      font-size: 13px;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .page {
+      max-width: 640px;
+    }
+
+    .rank-row {
+      padding: 16px 20px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="page-title">Leaderboard</div>
+  <div class="page-sub">Top players this week</div>
+
+  <div class="podium">
+    <div class="podium-item podium-2">
+      <div class="podium-avatar">RS</div>
+      <div class="podium-name">Riya Sharma</div>
+      <div class="podium-xp">2,980 XP</div>
+      <div class="podium-bar"></div>
+    </div>
+    <div class="podium-item podium-1">
+      <div class="podium-avatar">AK</div>
+      <div class="podium-name">Abhinaw</div>
+      <div class="podium-xp">3,240 XP</div>
+      <div class="podium-bar"></div>
+    </div>
+    <div class="podium-item podium-3">
+      <div class="podium-avatar">VK</div>
+      <div class="podium-name">Vikram K.</div>
+      <div class="podium-xp">2,710 XP</div>
+      <div class="podium-bar"></div>
+    </div>
+  </div>
+
+  <div id="rankList"></div>
+
+</div>
+
+<script>
+  const players = [
+    { rank: 1, name: "Abhinaw", level: 7, xp: 3240, me: true },
+    { rank: 2, name: "Riya Sharma", level: 8, xp: 2980 },
+    { rank: 3, name: "Vikram K.", level: 6, xp: 2710 },
+    { rank: 4, name: "Sneha Patel", level: 6, xp: 2450 },
+    { rank: 5, name: "Arjun Mehta", level: 5, xp: 2190 },
+    { rank: 6, name: "Priya Singh", level: 5, xp: 1980 },
+    { rank: 7, name: "Karan Verma", level: 4, xp: 1720 }
+  ];
+
+  function initials(name) {
+    return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+  }
+
+  const list = document.getElementById('rankList');
+  list.innerHTML = players.map(p => `
+    <div class="rank-row ${p.me ? 'me' : ''}">
+      <div class="rank-number">#${p.rank}</div>
+      <div class="rank-avatar">${initials(p.name)}</div>
+      <div class="rank-body">
+        <div class="rank-name">${p.name}${p.me ? ' (You)' : ''}</div>
+        <div class="rank-level">Level ${p.level}</div>
+      </div>
+      <div class="rank-xp">${p.xp.toLocaleString()}<span>XP</span></div>
+    </div>
+  `).join('');
+</script>
+
+</body>
+</html>

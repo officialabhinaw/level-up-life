@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Level Up Life — Profile</title>
+<style>
+  :root {
+    --navy: #0F172A;
+    --card-bg: #131C2E;
+    --card-border: #223049;
+    --text-dim: #8B96AC;
+    --teal: #0EA5A0;
+    --orange: #F97316;
+    --strength: #EF4444;
+    --intellect: #3B82F6;
+    --agility: #22C55E;
+    --discipline: #F59E0B;
+  }
+
+  * { 
+    box-sizing: border-box; 
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #070B14;
+    color: #F1F5F9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    -ms-overflow-style: none;  
+    scrollbar-width: none;  
+  }
+
+  body::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-container {
+    width: 100%;
+    max-width: 412px;
+    min-height: 100vh;
+    background: var(--navy);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+    overflow-y: auto;
+    -ms-overflow-style: none;  
+    scrollbar-width: none;  
+  }
+
+  .mobile-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media(min-width: 480px) {
+    .mobile-container {
+      border-radius: 36px;
+      border: 8px solid #1E293B;
+      height: 844px;
+      min-height: 844px;
+    }
+  }
+
+  .content-area {
+    padding: 30px 20px 20px 20px;
+    flex: 1;
+    text-align: center;
+  }
+
+  .avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: #16233F;
+    border: 2px solid #2A4A7C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: #5FA0FF;
+    margin: 0 auto 16px auto;
+  }
+
+  .profile-name {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .profile-rank {
+    font-size: 14px;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+
+  .profile-xp {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 30px;
+  }
+
+  .section-label {
+    text-align: left;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+
+  .stat-row {
+    text-align: left;
+    margin-bottom: 20px;
+  }
+
+  .stat-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .stat-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .stat-left svg { width: 20px; height: 20px; }
+
+  .stat-lvl {
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  .stat-track {
+    height: 6px;
+    border-radius: 4px;
+    background: #1B2740;
+    overflow: hidden;
+  }
+
+  .stat-fill {
+    height: 100%;
+    border-radius: 4px;
+  }
+
+  .badges-section {
+    margin-top: 32px;
+    margin-bottom: 20px;
+  }
+
+  .badges-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .badge-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #16233F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .badge-icon svg { width: 22px; height: 22px; }
+
+  .badge.locked .badge-icon {
+    background: #14192A;
+  }
+
+  .badge.locked .badge-icon svg {
+    opacity: 0.4;
+  }
+
+  .badge-label {
+    font-size: 11px;
+    color: var(--text-dim);
+    text-align: center;
+  }
+
+  /* Bottom Navigation Bar */
+  .bottom-nav {
+    position: sticky;
+    bottom: 0;
+    background: var(--card-bg);
+    border-top: 1px solid var(--card-border);
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    z-index: 10;
+  }
+
+  @media(min-width: 480px) {
+    .bottom-nav {
+        border-bottom-left-radius: 28px;
+        border-bottom-right-radius: 28px;
+    }
+  }
+
+  .nav-item {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 11px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+  }
+
+  .nav-item.active {
+    color: var(--teal);
+  }
+
+  .nav-item svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+  }
+</style>
+</head>
+<body>
+
+<div class="mobile-container">
+
+  <div class="content-area">
+    <div class="avatar" id="avatarInitials">AK</div>
+    <div class="profile-name" id="profileName">Abhinaw</div>
+    <div class="profile-rank" id="profileRank">Level 7 · Novice Coder</div>
+    <div class="profile-xp" id="profileXP">Total XP: 3,240</div>
+
+    <div class="section-label">STAT BREAKDOWN</div>
+
+    <div class="stat-row">
+      <div class="stat-top">
+        <div class="stat-left">
+          <svg viewBox="0 0 64 64" fill="none"><path d="M32 6 C36 16 44 20 44 32 C44 42 38 50 28 50 C18 50 12 42 14 32 C15 27 18 25 18 25 C18 30 21 32 23 30 C21 22 26 14 32 6 Z" fill="#EF4444"/></svg>
+          Strength
+        </div>
+        <div class="stat-lvl">Lvl 5</div>
+      </div>
+      <div class="stat-track"><div class="stat-fill" style="width: 55%; background: var(--strength);"></div></div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-top">
+        <div class="stat-left">
+          <svg viewBox="0 0 64 64" fill="none"><path d="M26 10 C20 10 16 14 16 19 C13 20 11 23 11 27 C11 30 12 32 14 34 C12 36 11 39 11 42 C11 47 15 51 20 51 L20 54 C20 56 22 58 24 58 L28 58 C30 58 32 56 32 54 L32 16 C32 12 29 10 26 10 Z" fill="#3B82F6"/><path d="M38 10 C44 10 48 14 48 19 C51 20 53 23 53 27 C53 30 52 32 50 34 C52 36 53 39 53 42 C53 47 49 51 44 51 L44 54 C44 56 42 58 40 58 L36 58 C34 58 32 56 32 54 L32 16 C32 12 35 10 38 10 Z" fill="#3B82F6"/></svg>
+          Intellect
+        </div>
+        <div class="stat-lvl">Lvl 9</div>
+      </div>
+      <div class="stat-track"><div class="stat-fill" style="width: 90%; background: var(--intellect);"></div></div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-top">
+        <div class="stat-left">
+          <svg viewBox="0 0 64 64" fill="none"><path d="M36 4 L14 36 L28 36 L24 60 L50 26 L34 26 Z" fill="#22C55E"/></svg>
+          Agility
+        </div>
+        <div class="stat-lvl">Lvl 4</div>
+      </div>
+      <div class="stat-track"><div class="stat-fill" style="width: 40%; background: var(--agility);"></div></div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-top">
+        <div class="stat-left">
+          <svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="24" fill="none" stroke="#F59E0B" stroke-width="5"/><circle cx="32" cy="32" r="12" fill="none" stroke="#F59E0B" stroke-width="5"/><circle cx="32" cy="32" r="4" fill="#F59E0B"/></svg>
+          Discipline
+        </div>
+        <div class="stat-lvl">Lvl 6</div>
+      </div>
+      <div class="stat-track"><div class="stat-fill" style="width: 60%; background: var(--discipline);"></div></div>
+    </div>
+
+    <div class="badges-section">
+      <div class="section-label">BADGES</div>
+      <div class="badges-grid">
+
+        <div class="badge">
+          <div class="badge-icon">
+            <svg viewBox="0 0 64 64" fill="none"><path d="M12 12 C20 8 28 8 32 12 L32 52 C28 48 20 48 12 52 Z" fill="#3B82F6"/><path d="M52 12 C44 8 36 8 32 12 L32 52 C36 48 44 48 52 52 Z" fill="#3B82F6"/></svg>
+          </div>
+          <div class="badge-label">Bookworm</div>
+        </div>
+
+        <div class="badge">
+          <div class="badge-icon">
+            <svg viewBox="0 0 64 64" fill="none"><path d="M32 6 C36 16 44 20 44 32 C44 42 38 50 28 50 C18 50 12 42 14 32 C15 27 18 25 18 25 C18 30 21 32 23 30 C21 22 26 14 32 6 Z" fill="#EF4444"/></svg>
+          </div>
+          <div class="badge-label">7-Day Streak</div>
+        </div>
+
+        <div class="badge locked">
+          <div class="badge-icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="#8B96AC" stroke-width="4"><rect x="16" y="28" width="32" height="24" rx="4"/><path d="M22 28 L22 18 C22 12 27 8 32 8 C37 8 42 12 42 18 L42 28" fill="none"/></svg>
+          </div>
+          <div class="badge-label">Locked</div>
+        </div>
+
+        <div class="badge locked">
+          <div class="badge-icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="#8B96AC" stroke-width="4"><rect x="16" y="28" width="32" height="24" rx="4"/><path d="M22 28 L22 18 C22 12 27 8 32 8 C37 8 42 12 42 18 L42 28" fill="none"/></svg>
+          </div>
+          <div class="badge-label">Locked</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation Bar -->
+  <div class="bottom-nav">
+    <a href="dashboard.html" class="nav-item">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        Home
+    </a>
+    <a href="quest.html" class="nav-item">
+        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+        Quests
+    </a>
+    <a href="achievment.html" class="nav-item">
+        <svg viewBox="0 0 24 24"><path d="M19 5h-4.15C14.3 3.61 13.25 2.5 12 2.5s-2.3 1.11-2.85 2.5H5c-1.1 0-2 .9-2 2v2c0 2.55 1.92 4.63 4.4 4.94C7.85 15.77 9.7 18.13 10.5 19.5v2.5h3v-2.5c.8-1.37 2.65-3.73 3.1-5.56 2.48-.31 4.4-2.39 4.4-4.94V7c0-1.1-.9-2-2-2zM5 9V7h2.12C6.42 7.8 6.03 8.37 5.75 9H5zm14 0h-.75c-.28-.63-.67-1.2-1.37-2H19v2z"/></svg>
+        Badges
+    </a>
+    <a href="profile.html" class="nav-item active">
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        Profile
+    </a>
+  </div>
+
+</div>
+
+<script>
+  // Real user ke naam se replace karne ke liye — login/signup ke time save kiya gaya data use karo
+  window.onload = function() {
+    const username = localStorage.getItem('username');
+    if (username) {
+      document.getElementById('profileName').innerText = username;
+      const initials = username.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+      document.getElementById('avatarInitials').innerText = initials || 'U';
+    }
+  };
+</script>
+
+</body>
+</html>
