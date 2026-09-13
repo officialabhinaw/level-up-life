@@ -375,6 +375,10 @@
 <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
 
 <script>
+    if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/level-up-life/sw.js')
+      .then(() => console.log("Service Worker Registered"));
+  }
     // 1. Firebase Configuration from your screenshot
     const firebaseConfig = {
     apiKey: "AIzaSyCfEaglyyPh7ID5BXQtCZqLNHzNzV2M2rg",
