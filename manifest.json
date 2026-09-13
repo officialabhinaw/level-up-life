@@ -8,12 +8,12 @@
   "description": "A gamified habit tracking web application",
   "icons": [
     {
-      "src": "https://raw.githubusercontent.com/officialabhinaw/level-up-life/main/icon.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/3177/3177440.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "https://raw.githubusercontent.com/officialabhinaw/level-up-life/main/icon.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/3177/3177440.png",
       "sizes": "512x512",
       "type": "image/png"
     }
